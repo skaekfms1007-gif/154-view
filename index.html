@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>GS칼텍스 전력계통</title>
   <style>
     body { margin:0; font-family: Arial, sans-serif; background:#0b1220; color:#e2e8f0; }
@@ -105,6 +106,15 @@
 <!-- /container -->
 
 <script>
+let lastTap = 0;
+  document.addEventListener('touchend', function(e) {
+    const now = Date.now();
+    const gap = now - lastTap;
+    if (gap < 300 && gap > 0) {
+      e.preventDefault();
+    }
+    lastTap = now;
+  }, { passive: false });
 function showView(type) {
   const c = document.getElementById('svg-area');
   const map = {
