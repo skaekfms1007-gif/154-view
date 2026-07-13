@@ -107,14 +107,15 @@
 
 <script>
 let lastTap = 0;
-  document.addEventListener('touchend', function(e) {
-    const now = Date.now();
-    const gap = now - lastTap;
-    if (gap < 300 && gap > 0) {
-      e.preventDefault();
-    }
-    lastTap = now;
-  }, { passive: false });
+document.addEventListener('touchend', function(e) {
+  // onclick 속성이 있거나 클릭 가능한 조상이 있으면 차단 안 함
+  if (e.target.closest('[onclick]')) return;
+  const now = Date.now();
+  const gap = now - lastTap;
+  if (gap < 300 && gap > 0) e.preventDefault();
+  lastTap = now;
+}, { passive: false });
+
 function showView(type) {
   const c = document.getElementById('svg-area');
   const map = {
@@ -181,15 +182,35 @@ function openLink(id) {
     '732TR204' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
     '720TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
     '720TR202' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '612TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '612TR202' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '612TR203' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '612TR204' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '652TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '652TR202' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '652TR203' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '615TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '616TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '616TR251' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '616TR203' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '516TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '516STR201': 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '516STR202': 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '520TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '535TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '502TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '512TR201' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
+    '512TR202' : 'https://gscaltexcorp.sharepoint.com/:x:/s/O365M_G36000/IQAq-CPepY_NQqxZpr6MjOwzATABbtjh_IlRwWKgYkw_BIg?e=P0Vyaa',
   };
+
+  // ① 애니메이션
   const el = document.getElementById(id);
   if (el) {
     el.classList.add('tr-clicked');
-    setTimeout(() => {
-      el.classList.remove('tr-clicked');
-      if (links[id]) window.open(links[id], '_blank');
-    }, 300);
+    setTimeout(() => el.classList.remove('tr-clicked'), 2000);
   }
+  // ② 링크 열기 — setTimeout 없이 즉시 (모바일 팝업 차단 방지)
+  if (links[id]) window.open(links[id], '_blank');
 }
 
 /* ── 실시간 데이터 (서버 없을 때 에러 방지) ── */
@@ -809,7 +830,7 @@ function s500Unit() {
       <circle cx="10" cy="10" r="4" class="cb-body"/>
       <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="512TR201" class="tr-live" transform="translate(-75,660)" ondblclick="openLink('512TR201')" style="cursor:pointer;">
+    <g id="512TR201" class="tr-live" transform="translate(-75,660)" onclick="openLink('512TR201')" style="cursor:pointer;">
       <title>512TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -861,7 +882,7 @@ function s500Unit() {
       <circle cx="10" cy="10" r="4" class="cb-body"/>
       <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="512TR202" class="tr-live" transform="translate(70,660)" ondblclick="openLink('512TR202')" style="cursor:pointer;">
+    <g id="512TR202" class="tr-live" transform="translate(70,660)" onclick="openLink('512TR202')" style="cursor:pointer;">
       <title>512TR202 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -917,7 +938,7 @@ function s500Unit() {
       <circle cx="10" cy="10" r="4" class="cb-body"/>
       <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="535TR201" class="tr-live" transform="translate(330,660)" ondblclick="openLink('535TR201')" style="cursor:pointer;">
+    <g id="535TR201" class="tr-live" transform="translate(330,660)" onclick="openLink('535TR201')" style="cursor:pointer;">
       <title>535TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -971,7 +992,7 @@ function s500Unit() {
       <circle cx="10" cy="10" r="4" class="cb-body"/>
       <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="502TR201" class="tr-live" transform="translate(510,660)" ondblclick="openLink('502TR201')" style="cursor:pointer;">
+    <g id="502TR201" class="tr-live" transform="translate(510,660)" onclick="openLink('502TR201')" style="cursor:pointer;">
       <title>502TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -1029,7 +1050,7 @@ function s500Unit() {
       <circle cx="10" cy="10" r="4" class="cb-body"/>
       <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="516TR201" class="tr-live" transform="translate(840,660)" ondblclick="openLink('516TR201')" style="cursor:pointer;">
+    <g id="516TR201" class="tr-live" transform="translate(840,660)" onclick="openLink('516TR201')" style="cursor:pointer;">
       <title>516TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -1081,7 +1102,7 @@ function s500Unit() {
       <circle cx="10" cy="10" r="4" class="cb-body"/>
       <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="520TR201" class="tr-live" transform="translate(1025,660)" ondblclick="openLink('520TR201')" style="cursor:pointer;">
+    <g id="520TR201" class="tr-live" transform="translate(1025,660)" onclick="openLink('520TR201')" style="cursor:pointer;">
       <title>520TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -1137,7 +1158,7 @@ function s500Unit() {
       <circle cx="10" cy="10" r="4" class="cb-body"/>
       <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="516STR202" class="tr-live" transform="translate(1285,635)" ondblclick="openLink('516STR202')" style="cursor:pointer;">
+    <g id="516STR202" class="tr-live" transform="translate(1285,635)" onclick="openLink('516STR202')" style="cursor:pointer;">
       <title>516STR202 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -1162,7 +1183,7 @@ function s500Unit() {
       <circle cx="10" cy="10" r="4" class="cb-body"/>
       <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="516STR201" class="tr-live" transform="translate(1405,635)" ondblclick="openLink('516STR201')" style="cursor:pointer;">
+    <g id="516STR201" class="tr-live" transform="translate(1405,635)" onclick="openLink('516STR201')" style="cursor:pointer;">
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
       <circle cx="150" cy="15" r="12" class="tr-body"/>
@@ -2363,7 +2384,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="612TR201" class="tr-live" transform="translate(-85,660)" ondblclick="openLink('612TR201')">
+    <g id="612TR201" class="tr-live" transform="translate(-85,660)" onclick="openLink('612TR201')">
       <title>612TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2415,7 +2436,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="612TR202" class="tr-live" transform="translate(65,660)" ondblclick="openLink('612TR202')">
+    <g id="612TR202" class="tr-live" transform="translate(65,660)" onclick="openLink('612TR202')">
       <title>612TR202 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2467,7 +2488,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="612TR203" class="tr-live" transform="translate(215,660)" ondblclick="openLink('612TR203')">
+    <g id="612TR203" class="tr-live" transform="translate(215,660)" onclick="openLink('612TR203')">
       <title>612TR203 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2519,7 +2540,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="612TR204" class="tr-live" transform="translate(365,660)" ondblclick="openLink('612TR204')">
+    <g id="612TR204" class="tr-live" transform="translate(365,660)" onclick="openLink('612TR204')">
       <title>612TR204 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2572,7 +2593,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="652TR201" class="tr-live" transform="translate(605,660)" ondblclick="openLink('652TR201')">
+    <g id="652TR201" class="tr-live" transform="translate(605,660)" onclick="openLink('652TR201')">
       <title>652TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2624,7 +2645,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="652TR202" class="tr-live" transform="translate(755,660)" ondblclick="openLink('652TR202')">
+    <g id="652TR202" class="tr-live" transform="translate(755,660)" onclick="openLink('652TR202')">
       <title>652TR202 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2676,7 +2697,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="652TR203" class="tr-live" transform="translate(905,660)" ondblclick="openLink('652TR203')">
+    <g id="652TR203" class="tr-live" transform="translate(905,660)" onclick="openLink('652TR203')">
       <title>652TR203 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2728,7 +2749,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="615TR201" class="tr-live" transform="translate(1055,660)" ondblclick="openLink('615TR201')">
+    <g id="615TR201" class="tr-live" transform="translate(1055,660)" onclick="openLink('615TR201')">
       <title>615TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2780,7 +2801,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="616TR201" class="tr-live" transform="translate(1205,660)" ondblclick="openLink('616TR201')">
+    <g id="616TR201" class="tr-live" transform="translate(1205,660)" onclick="openLink('616TR201')">
       <title>616TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2832,7 +2853,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="616TR251" class="tr-live" transform="translate(1355,660)" ondblclick="openLink('616TR251')">
+    <g id="616TR251" class="tr-live" transform="translate(1355,660)" onclick="openLink('616TR251')">
       <title>616TR251 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -2884,7 +2905,7 @@ function s600Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="616TR203" class="tr-live" transform="translate(1505,630)" ondblclick="openLink('616TR203')">
+    <g id="616TR203" class="tr-live" transform="translate(1505,630)" onclick="openLink('616TR203')">
       <title>616TR203 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -3854,7 +3875,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="712TR201" class="tr-live" transform="translate(-85,660)" ondblclick="openLink('712TR201')">
+    <g id="712TR201" class="tr-live" transform="translate(-85,660)" onclick="openLink('712TR201')">
       <title>712TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -3906,7 +3927,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="712TR202" class="tr-live" transform="translate(65,660)" ondblclick="openLink('712TR202')">
+    <g id="712TR202" class="tr-live" transform="translate(65,660)" onclick="openLink('712TR202')">
       <title>712TR202 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -3958,7 +3979,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="716TR201" class="tr-live" transform="translate(215,660)" ondblclick="openLink('716TR201')">
+    <g id="716TR201" class="tr-live" transform="translate(215,660)" onclick="openLink('716TR201')">
       <title>716TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -4010,7 +4031,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="716TR202" class="tr-live" transform="translate(365,660)" ondblclick="openLink('716TR202')">
+    <g id="716TR202" class="tr-live" transform="translate(365,660)" onclick="openLink('716TR202')">
       <title>716TR202 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -4062,7 +4083,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="732TR201" class="tr-live" transform="translate(605,660)" ondblclick="openLink('732TR201')">
+    <g id="732TR201" class="tr-live" transform="translate(605,660)" onclick="openLink('732TR201')">
       <title>732TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -4114,7 +4135,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="732TR202" class="tr-live" transform="translate(755,660)" ondblclick="openLink('732TR202')">
+    <g id="732TR202" class="tr-live" transform="translate(755,660)" onclick="openLink('732TR202')">
       <title>732TR202 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -4166,7 +4187,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="732TR203" class="tr-live" transform="translate(905,660)" ondblclick="openLink('732TR203')">
+    <g id="732TR203" class="tr-live" transform="translate(905,660)" onclick="openLink('732TR203')">
       <title>732TR203 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -4218,7 +4239,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="732TR204" class="tr-live" transform="translate(1055,660)" ondblclick="openLink('732TR204')">
+    <g id="732TR204" class="tr-live" transform="translate(1055,660)" onclick="openLink('732TR204')">
       <title>732TR204 절차서</title>
        <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -4270,7 +4291,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="720TR201" class="tr-live" transform="translate(1205,660)" ondblclick="openLink('720TR201')">
+    <g id="720TR201" class="tr-live" transform="translate(1205,660)" onclick="openLink('720TR201')">
       <title>720TR201 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
@@ -4322,7 +4343,7 @@ function s700Unit() {
     <circle cx="10" cy="10" r="4" class="cb-body"/>
     <circle cx="10" cy="30" r="4" class="cb-body"/>
     </g>
-    <g id="720TR202" class="tr-live" transform="translate(1355,660)" ondblclick="openLink('720TR202')">
+    <g id="720TR202" class="tr-live" transform="translate(1355,660)" onclick="openLink('720TR202')">
       <title>720TR202 절차서</title>
       <circle cx="150" cy="7"  r="38" fill="transparent"/>
       <circle cx="150" cy="0"  r="12" class="tr-body"/>
